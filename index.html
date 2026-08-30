@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Secret Surprise ❤️</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+
+            background: linear-gradient(
+                135deg,
+                #12001f,
+                #3b0a45,
+                #16001f
+            );
+
+            color: white;
+        }
+
+        .box {
+            width: 90%;
+            max-width: 450px;
+
+            padding: 35px 25px;
+
+            text-align: center;
+
+            background: rgba(255,255,255,0.10);
+
+            border-radius: 25px;
+
+            border: 1px solid rgba(255,255,255,0.2);
+
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+
+            backdrop-filter: blur(10px);
+        }
+
+        .lock {
+            font-size: 65px;
+        }
+
+        h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #dddddd;
+            line-height: 1.6;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+
+            margin-top: 15px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            font-size: 17px;
+
+            text-align: center;
+
+            outline: none;
+
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+
+            padding: 15px;
+
+            margin-top: 12px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: #ff4f9a;
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #ff287f;
+        }
+
+        #error {
+            margin-top: 12px;
+
+            color: #ff8a8a;
+
+            min-height: 20px;
+        }
+
+        #surprise {
+            display: none;
+        }
+
+        .heart {
+            font-size: 75px;
+
+            animation: heartbeat 1.2s infinite;
+        }
+
+        @keyframes heartbeat {
+
+            50% {
+                transform: scale(1.2);
+            }
+
+        }
+
+        .message {
+            margin-top: 20px;
+
+            padding: 20px;
+
+            background: rgba(255,255,255,0.08);
+
+            border-radius: 15px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ========================= -->
+<!-- LOCK SCREEN -->
+<!-- ========================= -->
+
+<div class="box" id="lockScreen">
+
+    <div class="lock">
+        🔐
+    </div>
+
+    <h1>
+        A Surprise Awaits You
+    </h1>
+
+    <p>
+        Someone has prepared something special for you ❤️
+        <br><br>
+        Enter the secret code to unlock it.
+    </p>
+
+
+    <input
+        type="text"
+        id="code"
+        placeholder="Enter Secret Code"
+    >
+
+
+    <button onclick="unlock()">
+
+        🔓 Unlock Surprise
+
+    </button>
+
+
+    <div id="error"></div>
+
+</div>
+
+
+
+<!-- ========================= -->
+<!-- SURPRISE -->
+<!-- ========================= -->
+
+<div class="box" id="surprise">
+
+    <div class="heart">
+        ❤️
+    </div>
+
+    <h1>
+        Happy Birthday 🎂
+    </h1>
+
+    <p>
+        You unlocked the secret surprise! 🎉
+    </p>
+
+
+    <div class="message">
+
+        <h2>
+            💌 A Special Message
+        </h2>
+
+        <p>
+
+            Yahan tumhara actual birthday message
+            aayega.
+
+            <br><br>
+
+            Yahan hum baad mein:
+
+            <br><br>
+
+            📸 Photos
+            <br>
+            🎥 Video
+            <br>
+            🎵 Audio
+            <br>
+            📝 Personal Message
+            <br>
+            ❤️ Emojis
+            <br>
+            🎁 Final Surprise
+
+            <br><br>
+
+            sab add karenge.
+
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+/*
+==========================================
+🔐 APNA SECRET CODE YAHAN LIKHO
+==========================================
+*/
+
+const SECRET_CODE = "12345";
+
+
+
+function unlock() {
+
+    const enteredCode =
+        document.getElementById("code").value.trim();
+
+
+    const error =
+        document.getElementById("error");
+
+
+    if (enteredCode === SECRET_CODE) {
+
+
+        document.getElementById("lockScreen").style.display =
+            "none";
+
+
+        document.getElementById("surprise").style.display =
+            "block";
+
+
+    }
+
+    else {
+
+
+        error.innerText =
+            "❌ Wrong Code! Try Again";
+
+
+    }
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
