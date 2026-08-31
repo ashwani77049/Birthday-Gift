@@ -1,146 +1,295 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Secret Surprise ❤️</title>
+<meta charset="UTF-8">
 
-    <style>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial, sans-serif;
+<title>Secret Surprise</title>
 
-            background: linear-gradient(
-                135deg,
-                #12001f,
-                #3b0a45,
-                #16001f
-            );
+<style>
 
-            color: white;
-        }
+/* =========================
+   BASIC
+   ========================= */
 
-        .box {
-            width: 90%;
-            max-width: 450px;
+* {
+    box-sizing: border-box;
+}
 
-            padding: 35px 25px;
+body {
+    margin: 0;
+    min-height: 100vh;
 
-            text-align: center;
+    background:
+        linear-gradient(
+            135deg,
+            #16001f,
+            #3b0a45,
+            #7a164f
+        );
 
-            background: rgba(255,255,255,0.10);
+    font-family: Arial, sans-serif;
+    color: white;
+}
 
-            border-radius: 25px;
+.container {
+    width: 92%;
+    max-width: 850px;
 
-            border: 1px solid rgba(255,255,255,0.2);
+    margin: auto;
+    padding: 40px 0;
 
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    text-align: center;
+}
 
-            backdrop-filter: blur(10px);
-        }
+.card {
+    background:
+        rgba(255,255,255,0.12);
 
-        .lock {
-            font-size: 65px;
-        }
+    padding: 30px;
+    margin: 25px 0;
 
-        h1 {
-            font-size: 30px;
-            margin-bottom: 10px;
-        }
+    border-radius: 22px;
 
-        p {
-            color: #dddddd;
-            line-height: 1.6;
-        }
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,0.35);
 
-        input {
-            width: 100%;
-            padding: 15px;
+    backdrop-filter: blur(10px);
+}
 
-            margin-top: 15px;
 
-            border: none;
+/* =========================
+   MICROPHONE
+   ========================= */
 
-            border-radius: 12px;
+.mic {
+    font-size: 75px;
 
-            font-size: 17px;
+    animation:
+        pulse 1.5s infinite;
+}
 
-            text-align: center;
+@keyframes pulse {
 
-            outline: none;
+    50% {
+        transform: scale(1.15);
+    }
 
-            box-sizing: border-box;
-        }
+}
 
-        button {
-            width: 100%;
 
-            padding: 15px;
+/* =========================
+   BUTTON
+   ========================= */
 
-            margin-top: 12px;
+button {
+    padding: 15px 30px;
 
-            border: none;
+    border: none;
+    border-radius: 30px;
 
-            border-radius: 12px;
+    background: #ff4f9a;
 
-            background: #ff4f9a;
+    color: white;
 
-            color: white;
+    font-size: 17px;
+    font-weight: bold;
 
-            font-size: 17px;
+    cursor: pointer;
 
-            font-weight: bold;
+    transition: 0.2s;
+}
 
-            cursor: pointer;
-        }
+button:hover {
+    transform: scale(1.05);
+}
 
-        button:hover {
-            background: #ff287f;
-        }
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
 
-        #error {
-            margin-top: 12px;
 
-            color: #ff8a8a;
+/* =========================
+   STATUS
+   ========================= */
 
-            min-height: 20px;
-        }
+#status {
+    margin-top: 20px;
+    font-size: 17px;
+}
 
-        #surprise {
-            display: none;
-        }
+#error {
+    margin-top: 12px;
+    color: #ffb6d5;
+}
 
-        .heart {
-            font-size: 75px;
 
-            animation: heartbeat 1.2s infinite;
-        }
+/* =========================
+   HIDDEN CONTENT
+   ========================= */
 
-        @keyframes heartbeat {
+#content {
+    display: none;
+}
 
-            50% {
-                transform: scale(1.2);
-            }
 
-        }
+/* =========================
+   PHOTO
+   ========================= */
 
-        .message {
-            margin-top: 20px;
+img {
+    width: 100%;
+    max-width: 500px;
 
-            padding: 20px;
+    border-radius: 18px;
+}
 
-            background: rgba(255,255,255,0.08);
 
-            border-radius: 15px;
-        }
+/* =========================
+   WAVEFORM
+   ========================= */
 
-    </style>
+.wave-player {
+    width: 100%;
+    max-width: 700px;
+
+    margin: auto;
+    padding: 22px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(0,0,0,0.25);
+}
+
+.wave-container {
+    height: 100px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 4px;
+
+    overflow: hidden;
+}
+
+.bar {
+    width: 5px;
+    height: 25px;
+
+    border-radius: 10px;
+
+    background: #ff6fae;
+}
+
+.wave-player.playing .bar {
+    animation:
+        wave
+        0.8s
+        infinite
+        ease-in-out
+        alternate;
+}
+
+@keyframes wave {
+
+    from {
+        transform: scaleY(0.45);
+    }
+
+    to {
+        transform: scaleY(1.5);
+    }
+
+}
+
+.bar:nth-child(2n) {
+    animation-delay: .1s;
+}
+
+.bar:nth-child(3n) {
+    animation-delay: .2s;
+}
+
+.bar:nth-child(4n) {
+    animation-delay: .3s;
+}
+
+
+/* =========================
+   AUDIO CONTROLS
+   ========================= */
+
+.audio-controls {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 15px;
+
+    margin-top: 15px;
+}
+
+.play-button {
+    width: 55px;
+    height: 55px;
+
+    padding: 0;
+
+    border-radius: 50%;
+
+    font-size: 22px;
+}
+
+.time {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+
+/* =========================
+   VIDEO
+   ========================= */
+
+video {
+    width: 100%;
+    max-width: 750px;
+
+    border-radius: 18px;
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media(max-width:600px) {
+
+    .card {
+        padding: 20px;
+    }
+
+    .wave-container {
+        height: 80px;
+        gap: 3px;
+    }
+
+    .bar {
+        width: 3px;
+    }
+
+}
+
+</style>
 
 </head>
 
@@ -148,40 +297,34 @@
 <body>
 
 
-<!-- ========================= -->
-<!-- LOCK SCREEN -->
-<!-- ========================= -->
+<div class="container">
 
-<div class="box" id="lockScreen">
 
-    <div class="lock">
-        🔐
+<!-- =================================
+     VOICE LOCK
+     ================================= -->
+
+<div id="lock" class="card">
+
+    <div class="mic">
+        🎙️
     </div>
 
     <h1>
-        A Surprise Awaits You
+        Speak To Unlock
     </h1>
 
     <p>
-        Someone has prepared something special for you ❤️
-        <br><br>
-        Enter the secret code to unlock it.
+        Press the button and speak the secret phrase.
     </p>
 
-
-    <input
-        type="text"
-        id="code"
-        placeholder="Enter Secret Code"
-    >
-
-
-    <button onclick="unlock()">
-
-        🔓 Unlock Surprise
-
+    <button id="startButton">
+        🎤 Start Speaking
     </button>
 
+    <div id="status">
+        Ready...
+    </div>
 
     <div id="error"></div>
 
@@ -189,61 +332,103 @@
 
 
 
-<!-- ========================= -->
-<!-- SURPRISE -->
-<!-- ========================= -->
+<!-- =================================
+     SURPRISE CONTENT
+     ================================= -->
 
-<div class="box" id="surprise">
-
-    <div class="heart">
-        ❤️
-    </div>
-
-    <h1>
-        Happy Birthday 🎂
-    </h1>
-
-    <p>
-        You unlocked the secret surprise! 🎉
-    </p>
+<div id="content">
 
 
-    <div class="message">
+    <!-- =================================
+         PHOTO
+         ================================= -->
 
-        <h2>
-            💌 A Special Message
-        </h2>
+    <div class="card">
 
-        <p>
-
-            Yahan tumhara actual birthday message
-            aayega.
-
-            <br><br>
-
-            Yahan hum baad mein:
-
-            <br><br>
-
-            📸 Photos
-            <br>
-            🎥 Video
-            <br>
-            🎵 Audio
-            <br>
-            📝 Personal Message
-            <br>
-            ❤️ Emojis
-            <br>
-            🎁 Final Surprise
-
-            <br><br>
-
-            sab add karenge.
-
-        </p>
+        <img
+            src="Photos/photo1.jpg"
+            alt="Surprise Photo"
+        >
 
     </div>
+
+
+
+    <!-- =================================
+         AUDIO
+         ================================= -->
+
+    <div class="card">
+
+        <div
+            class="wave-player"
+            id="wavePlayer"
+        >
+
+            <div
+                class="wave-container"
+                id="waveContainer"
+            >
+            </div>
+
+
+            <div class="audio-controls">
+
+                <button
+                    class="play-button"
+                    id="playButton"
+                >
+                    ▶
+                </button>
+
+                <div
+                    class="time"
+                    id="time"
+                >
+                    0:00
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <audio
+            id="audio"
+            src="Audio/audio1.m4a"
+            preload="auto"
+        >
+        </audio>
+
+    </div>
+
+
+
+    <!-- =================================
+         VIDEO
+         ================================= -->
+
+    <div class="card">
+
+        <video
+            id="video"
+            controls
+            playsinline
+        >
+
+            <source
+                src="Vidios/video1.mp4"
+                type="video/mp4"
+            >
+
+            Your browser does not support video.
+
+        </video>
+
+    </div>
+
+
+</div>
 
 </div>
 
@@ -252,53 +437,875 @@
 <script>
 
 
-/*
-==========================================
-🔐 APNA SECRET CODE YAHAN LIKHO
-==========================================
-*/
+/* =====================================================
+   🔐 SECRET PHRASE
+   ===================================================== */
 
-const SECRET_CODE = "12345";
-
+const SECRET_PHRASE =
+    "ds wale chutiya hain";
 
 
-function unlock() {
+/* =====================================================
+   ELEMENTS
+   ===================================================== */
 
-    const enteredCode =
-        document.getElementById("code").value.trim();
+const startButton =
+    document.getElementById("startButton");
 
+const statusText =
+    document.getElementById("status");
 
-    const error =
-        document.getElementById("error");
+const errorText =
+    document.getElementById("error");
 
+const lock =
+    document.getElementById("lock");
 
-    if (enteredCode === SECRET_CODE) {
-
-
-        document.getElementById("lockScreen").style.display =
-            "none";
-
-
-        document.getElementById("surprise").style.display =
-            "block";
-
-
-    }
-
-    else {
+const content =
+    document.getElementById("content");
 
 
-        error.innerText =
-            "❌ Wrong Code! Try Again";
+/* =====================================================
+   AUDIO ELEMENTS
+   ===================================================== */
+
+const audio =
+    document.getElementById("audio");
+
+const wavePlayer =
+    document.getElementById("wavePlayer");
+
+const playButton =
+    document.getElementById("playButton");
+
+const time =
+    document.getElementById("time");
+
+const waveContainer =
+    document.getElementById("waveContainer");
 
 
-    }
+/* =====================================================
+   VIDEO
+   ===================================================== */
+
+const video =
+    document.getElementById("video");
+
+
+/* =====================================================
+   🎙️ SPEECH RECOGNITION
+   ===================================================== */
+
+const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+
+if (!SpeechRecognition) {
+
+    statusText.innerText =
+        "Voice recognition is not supported in this browser.";
+
+    startButton.disabled = true;
+
+}
+
+else {
+
+    const recognition =
+        new SpeechRecognition();
+
+
+    recognition.lang =
+        "en-IN";
+
+
+    recognition.continuous =
+        false;
+
+
+    recognition.interimResults =
+        false;
+
+
+    /* ===============================
+       START LISTENING
+       =============================== */
+
+    startButton.addEventListener(
+        "click",
+        function() {
+
+            errorText.innerText =
+                "";
+
+            statusText.innerText =
+                "🎙️ Listening... Speak now!";
+
+            startButton.disabled =
+                true;
+
+
+            try {
+
+                recognition.start();
+
+            }
+
+            catch (e) {
+
+                startButton.disabled =
+                    false;
+
+            }
+
+        }
+    );
+
+
+    /* ===============================
+       VOICE RESULT
+       =============================== */
+
+    recognition.onresult =
+        function(event) {
+
+
+            let spokenText =
+                event.results[0][0]
+                .transcript
+                .trim()
+                .toLowerCase();
+
+
+            statusText.innerText =
+                "You said: " +
+                spokenText;
+
+
+            spokenText =
+                spokenText.replace(
+                    /[.,!?।]/g,
+                    ""
+                );
+
+
+            let matchedWords = 0;
+
+
+            /* DS */
+
+            if (
+
+                spokenText.includes("ds") ||
+                spokenText.includes("d s") ||
+                spokenText.includes("d.s") ||
+                spokenText.includes("डीएस") ||
+                spokenText.includes("डी एस")
+
+            ) {
+
+                matchedWords++;
+
+            }
+
+
+            /* WALE */
+
+            if (
+
+                spokenText.includes("wale") ||
+                spokenText.includes("वाले")
+
+            ) {
+
+                matchedWords++;
+
+            }
+
+
+            /* CHUTIYA */
+
+            if (
+
+                spokenText.includes("chutiya") ||
+                spokenText.includes("chutiye") ||
+                spokenText.includes("चुटिया") ||
+                spokenText.includes("चूतिया")
+
+            ) {
+
+                matchedWords++;
+
+            }
+
+
+            /* HAIN */
+
+            if (
+
+                spokenText.includes("hain") ||
+                spokenText.includes("हैं") ||
+                spokenText.includes("है")
+
+            ) {
+
+                matchedWords++;
+
+            }
+
+
+            /*
+             3 out of 4 words
+             = unlock
+            */
+
+            if (matchedWords >= 3) {
+
+
+                statusText.innerText =
+                    "✅ Correct! Surprise unlocked!";
+
+
+                lock.style.display =
+                    "none";
+
+
+                content.style.display =
+                    "block";
+
+
+                window.scrollTo({
+
+                    top: 0,
+
+                    behavior: "smooth"
+
+                });
+
+
+                /*
+                 Start audio and video.
+                */
+
+                startAudio();
+
+
+                startVideo();
+
+            }
+
+            else {
+
+                errorText.innerText =
+                    "❌ Phrase did not match. Try again.";
+
+                startButton.disabled =
+                    false;
+
+            }
+
+        };
+
+
+    /* ===============================
+       ERROR
+       =============================== */
+
+    recognition.onerror =
+        function(event) {
+
+
+            startButton.disabled =
+                false;
+
+
+            if (
+                event.error ===
+                "not-allowed"
+            ) {
+
+                errorText.innerText =
+                    "🎙️ Please allow microphone permission.";
+
+            }
+
+            else if (
+                event.error ===
+                "no-speech"
+            ) {
+
+                errorText.innerText =
+                    "🎙️ I couldn't hear you. Try again.";
+
+            }
+
+            else {
+
+                errorText.innerText =
+                    "❌ Voice recognition error. Try again.";
+
+            }
+
+
+            statusText.innerText =
+                "Ready...";
+
+        };
+
+
+    recognition.onend =
+        function() {
+
+            startButton.disabled =
+                false;
+
+        };
 
 }
 
 
-</script>
+/* =====================================================
+   🎵 CREATE WAVEFORM
+   ===================================================== */
 
+for (
+    let i = 0;
+    i < 70;
+    i++
+) {
+
+    const bar =
+        document.createElement("div");
+
+
+    bar.className =
+        "bar";
+
+
+    const height =
+        Math.floor(
+            Math.random() * 65
+        ) + 15;
+
+
+    bar.style.height =
+        height + "px";
+
+
+    waveContainer.appendChild(
+        bar
+    );
+
+}
+
+
+/* =====================================================
+   🎵 AUDIO 10-SECOND LOCK
+   ===================================================== */
+
+let audioStartTime = 0;
+
+let audioLockActive = false;
+
+
+/* ===============================
+   START AUDIO
+   =============================== */
+
+function startAudio() {
+
+
+    audioStartTime =
+        Date.now();
+
+
+    audioLockActive =
+        true;
+
+
+    audio.currentTime =
+        0;
+
+
+    audio.play()
+        .then(
+            function() {
+
+                wavePlayer.classList.add(
+                    "playing"
+                );
+
+                playButton.innerText =
+                    "⏸";
+
+            }
+        )
+        .catch(
+            function() {
+
+                playButton.innerText =
+                    "▶";
+
+            }
+        );
+
+
+    /*
+     Unlock after exactly 10 seconds.
+    */
+
+    setTimeout(
+        function() {
+
+            audioLockActive =
+                false;
+
+        },
+        10000
+    );
+
+}
+
+
+/* ===============================
+   AUDIO PAUSE BLOCK
+   =============================== */
+
+audio.addEventListener(
+    "pause",
+    function() {
+
+
+        const elapsed =
+            Date.now() -
+            audioStartTime;
+
+
+        if (
+            audioLockActive &&
+            elapsed < 10000
+        ) {
+
+
+            /*
+             Immediately resume.
+            */
+
+            audio.play()
+                .catch(
+                    function() {}
+                );
+
+
+            playButton.innerText =
+                "⏸";
+
+
+            return;
+
+        }
+
+
+        /*
+         After 10 sec normal pause.
+        */
+
+        wavePlayer.classList.remove(
+            "playing"
+        );
+
+
+        playButton.innerText =
+            "▶";
+
+    }
+);
+
+
+/* ===============================
+   AUDIO ENDED
+   =============================== */
+
+audio.addEventListener(
+    "ended",
+    function() {
+
+
+        const elapsed =
+            Date.now() -
+            audioStartTime;
+
+
+        if (
+            audioLockActive &&
+            elapsed < 10000
+        ) {
+
+
+            /*
+             If audio is shorter than
+             10 sec, restart it.
+            */
+
+            audio.currentTime =
+                0;
+
+
+            audio.play()
+                .catch(
+                    function() {}
+                );
+
+
+            return;
+
+        }
+
+
+        wavePlayer.classList.remove(
+            "playing"
+        );
+
+
+        playButton.innerText =
+            "▶";
+
+
+        time.innerText =
+            "0:00";
+
+    }
+);
+
+
+/* ===============================
+   PLAY BUTTON
+   =============================== */
+
+playButton.addEventListener(
+    "click",
+    function() {
+
+
+        const elapsed =
+            Date.now() -
+            audioStartTime;
+
+
+        /*
+         No pause during first 10 sec.
+        */
+
+        if (
+            audioLockActive &&
+            elapsed < 10000
+        ) {
+
+            return;
+
+        }
+
+
+        if (
+            audio.paused
+        ) {
+
+            audio.play();
+
+        }
+
+        else {
+
+            audio.pause();
+
+        }
+
+    }
+);
+
+
+/* ===============================
+   AUDIO PLAY
+   =============================== */
+
+audio.addEventListener(
+    "play",
+    function() {
+
+        wavePlayer.classList.add(
+            "playing"
+        );
+
+        playButton.innerText =
+            "⏸";
+
+    }
+);
+
+
+/* ===============================
+   AUDIO TIME
+   =============================== */
+
+audio.addEventListener(
+    "timeupdate",
+    function() {
+
+
+        const minutes =
+            Math.floor(
+                audio.currentTime / 60
+            );
+
+
+        const seconds =
+            Math.floor(
+                audio.currentTime % 60
+            )
+            .toString()
+            .padStart(
+                2,
+                "0"
+            );
+
+
+        time.innerText =
+            minutes +
+            ":" +
+            seconds;
+
+    }
+);
+
+
+/* =====================================================
+   🎥 VIDEO 10-SECOND LOCK
+   ===================================================== */
+
+let videoStartTime = 0;
+
+let videoLockActive = false;
+
+
+/* ===============================
+   START VIDEO
+   =============================== */
+
+function startVideo() {
+
+
+    videoStartTime =
+        Date.now();
+
+
+    videoLockActive =
+        true;
+
+
+    video.currentTime =
+        0;
+
+
+    video.play()
+        .catch(
+            function() {
+
+                /*
+                 Browser may block
+                 automatic video playback.
+                */
+
+            }
+        );
+
+
+    /*
+     Unlock after 10 sec.
+    */
+
+    setTimeout(
+        function() {
+
+            videoLockActive =
+                false;
+
+        },
+        10000
+    );
+
+}
+
+
+/* ===============================
+   VIDEO PLAY
+   =============================== */
+
+video.addEventListener(
+    "play",
+    function() {
+
+
+        /*
+         If video was manually
+         started after the first
+         unlock, don't reset timer.
+        */
+
+        if (
+            !videoLockActive
+        ) {
+
+            return;
+
+        }
+
+    }
+);
+
+
+/* ===============================
+   VIDEO PAUSE BLOCK
+   =============================== */
+
+video.addEventListener(
+    "pause",
+    function() {
+
+
+        const elapsed =
+            Date.now() -
+            videoStartTime;
+
+
+        if (
+            videoLockActive &&
+            elapsed < 10000
+        ) {
+
+
+            /*
+             Immediately resume.
+            */
+
+            video.play()
+                .catch(
+                    function() {}
+                );
+
+
+            return;
+
+        }
+
+
+        /*
+         After 10 sec pause is allowed.
+        */
+
+        videoLockActive =
+            false;
+
+    }
+);
+
+
+/* ===============================
+   VIDEO ENDED
+   =============================== */
+
+video.addEventListener(
+    "ended",
+    function() {
+
+
+        const elapsed =
+            Date.now() -
+            videoStartTime;
+
+
+        if (
+            videoLockActive &&
+            elapsed < 10000
+        ) {
+
+
+            /*
+             Video shorter than 10 sec:
+             restart automatically.
+            */
+
+            video.currentTime =
+                0;
+
+
+            video.play()
+                .catch(
+                    function() {}
+                );
+
+
+            return;
+
+        }
+
+
+        videoLockActive =
+            false;
+
+    }
+);
+
+
+/* ===============================
+   VIDEO SEEK BLOCK
+   =============================== */
+
+let lastVideoTime = 0;
+
+
+video.addEventListener(
+    "timeupdate",
+    function() {
+
+        lastVideoTime =
+            video.currentTime;
+
+    }
+);
+
+
+video.addEventListener(
+    "seeking",
+    function() {
+
+
+        const elapsed =
+            Date.now() -
+            videoStartTime;
+
+
+        if (
+            videoLockActive &&
+            elapsed < 10000
+        ) {
+
+
+            /*
+             Don't allow seeking
+             during first 10 sec.
+            */
+
+            video.currentTime =
+                lastVideoTime;
+
+        }
+
+    }
+);
+
+</script>
 
 </body>
 
